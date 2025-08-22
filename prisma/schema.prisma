@@ -21,10 +21,11 @@ model Transaction {
   type          TransactionType
   category      TransactionCategory
   paymentMethod TransactionPaymentMethod
-  status       TransactionStatus
+  status        TransactionStatus
   date          DateTime
   createdAt     DateTime                 @default(now())
   updatedAt     DateTime                 @updatedAt
+  userId        String
 }
 
 enum TransactionType {
