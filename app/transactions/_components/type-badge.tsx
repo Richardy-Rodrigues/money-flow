@@ -1,6 +1,6 @@
 import { Badge } from "@/app/_components/ui/badge";
 import { Transaction, TransactionType } from "@prisma/client";
-import { ArrowDown, ArrowUp } from "lucide-react";
+import { ArrowDown, ArrowUp, ChartNoAxesCombined } from "lucide-react";
 
 interface TransactionTypeBadgeProps {
   transaction: Transaction;
@@ -25,6 +25,7 @@ const TransactionTypeBadge = ({ transaction }: TransactionTypeBadgeProps) => {
   }
   return (
     <Badge className="text-primary rounded-full bg-gray-800 px-2 py-1 font-bold hover:bg-gray-800">
+      <ChartNoAxesCombined />
       Investimento
     </Badge>
   );
