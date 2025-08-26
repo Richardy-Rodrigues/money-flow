@@ -2,19 +2,33 @@
 
 import { db } from "@/app/_lib/prisma";
 import { auth } from "@clerk/nextjs/server";
-import { Prisma } from "@prisma/client";
+import {
+  TransactionCategory,
+  TransactionPaymentMethod,
+  TransactionStatus,
+  TransactionType,
+} from "@prisma/client";
 import { addTransactionSchema } from "./schema";
+import { revalidatePath } from "next/cache";
 
-export const addTransaction = async (
-  params: Omit<Prisma.TransactionCreateInput, "userId">,
-) => {
+interface AddTransactionParams {
+  description: string;
+  amount: number;
+  date: Date;
+  category: TransactionCategory;
+  paymentMethod: TransactionPaymentMethod;
+  type: TransactionType;
+  status: TransactionStatus;
+}
+
+export const addTransaction = async (params: AddTransactionParams) => {
   addTransactionSchema.parse(params);
   const { userId } = await auth();
   if (!userId) {
     throw new Error("Usuário não autenticado");
   }
-  const transaction = await db.transaction.create({
+  await db.transaction.create({
     data: { ...params, userId },
   });
-  return transaction;
+  revalidatePath("/transactions");
 };
