@@ -16,6 +16,7 @@ import { z } from "zod";
 import {
   TransactionCategory,
   TransactionPaymentMethod,
+  TransactionStatus,
   TransactionType,
 } from "@prisma/client";
 import { useForm } from "react-hook-form";
@@ -43,6 +44,8 @@ import {
   TRANSACTION_TYPE_OPTIONS,
 } from "../_constants/transactions";
 import { DatePicker } from "./ui/date-picker";
+// import { addTransactionSchema } from "../_actions/add-transaction/schema";
+import { addTransaction } from "../_actions/add-transaction";
 
 type FormSchema = z.infer<typeof formSchema>;
 
@@ -67,6 +70,7 @@ const formSchema = z.object({
   paymentMethod: z.nativeEnum(TransactionPaymentMethod, {
     message: "O método de pagamento é obrigatório.",
   }),
+  status: z.nativeEnum(TransactionStatus),
 });
 
 const AddTransactionButton = () => {
@@ -79,11 +83,16 @@ const AddTransactionButton = () => {
       description: "",
       paymentMethod: TransactionPaymentMethod.CASH,
       type: TransactionType.EXPENSE,
+      status: "PENDING",
     },
   });
 
-  const onSubmit = (data: FormSchema) => {
-    console.log({ data });
+  const onSubmit = async (data: FormSchema) => {
+    try {
+      await addTransaction(data);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (

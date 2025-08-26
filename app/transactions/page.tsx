@@ -14,7 +14,10 @@ const TransactionsPage = async () => {
       </div>
       {/* TRANSACTION TABLE */}
       <div className="">
-        <DataTable columns={TransactionColumns} data={transactions} />
+        <DataTable
+          columns={TransactionColumns}
+          data={JSON.parse(JSON.stringify(transactions))}
+        />
       </div>
       {/* PAGINATION */}
     </div>
