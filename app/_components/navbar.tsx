@@ -7,10 +7,6 @@ import { usePathname } from "next/navigation";
 
 const Navbar = () => {
   const pathname = usePathname();
-
-  if (pathname === "/subscription") {
-    return null;
-  }
   return (
     <nav className="flex items-center justify-between border-b border-solid px-6 py-4">
       <div className="flex items-center gap-6 text-lg font-medium">
