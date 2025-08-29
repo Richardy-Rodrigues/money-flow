@@ -11,7 +11,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "./popover";
 import { SelectSingleEventHandler } from "react-day-picker";
 
 interface DatePickerProps {
-  value?: Date | Date;
+  value?: Date;
   onChange?: SelectSingleEventHandler;
 }
 
