@@ -30,7 +30,9 @@ const Home = async ({ searchParams }: HomeProps) => {
           <h1 className="text-2xl font-bold">Dashboard</h1>
           <TimeSelect />
         </div>
-        <SummaryCards month={month} />
+        <div className="max-w-4/6">
+          <SummaryCards month={month} />
+        </div>
       </div>
     </>
   );
